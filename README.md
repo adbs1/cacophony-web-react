@@ -3,6 +3,8 @@
 ## Features:
 - Bootstrap 4
 - React / Redux
+- Jest testing framework
+- ES6
 
 
 ## Install
@@ -16,4 +18,9 @@ Create and edit app.config file (from app.config.TEMPLATE)
 ## Run
 ```bash
 npm start
+```
+
+## Test
+```bash
+npm test
 ```
