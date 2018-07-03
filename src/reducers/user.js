@@ -6,11 +6,10 @@ import {
 } from '../actions/user'
 
 const initialUserState = {
-	isLoggedIn: localStorage.getItem('isLoggedIn') || false,
 	isLoggingIn: false,
 	didInvalidate: false,
 	JWT: localStorage.getItem('JWT'),
-	userData: {'username':localStorage.getItem('username')},
+	userData: {'username': localStorage.getItem('username')},
 	errorMessage: undefined
 }
 
@@ -20,7 +19,7 @@ function userReducer(
 		switch (action.type) {
 			case INVALIDATE_LOGIN:
 				return Object.assign({},state, initialUserState,{
-					isLoggedIn: false,
+					JWT: '',
 					didInvalidate: true,
 					lastUpdated: action.receivedAt
 				})
@@ -30,7 +29,7 @@ function userReducer(
 				})
 			case REJECT_LOGIN:
 				return Object.assign({},state, initialUserState,{
-					isLoggedIn: false,
+					JWT: '',
 					didInvalidate: true,
 					lastUpdated: action.receivedAt,
 					errorMessage: action.data.messages || action.data.message

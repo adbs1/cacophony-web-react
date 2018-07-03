@@ -35,10 +35,23 @@ module.exports = {
 				]
 			},
 			{
+				test: /\.test.js?/,
+				exclude: [/node_modules/, /public/],
+				use: [
+					"babel-loader",
+					{
+						loader: 'eslint-loader',
+						options: {
+							emitError: true
+						}
+					}
+				]
+			},
+			{
 				test: /\.css$/,
 				use: [
 					'style-loader',
-					//{ loader: 'css-loader', options: { importLoaders: 1, modules: true, localIdentName: '[name]__[local]___[hash:base64:5]' } },
+					//{ loader: 'css-loader', options: { importLoaders: 1, modules: true, localIdentName: '[name]__[local]___[hash:base64:5]' } }, CSS Modules disabled to allow Bootstrap 4
 					{ loader: 'css-loader', options: { importLoaders: 1, modules: false } },
 					'postcss-loader'
 				]
@@ -47,7 +60,7 @@ module.exports = {
 				test: /\.scss$/,
 				use: [
 					'style-loader',
-					//{ loader: 'css-loader', options: { importLoaders: 1, modules: true, localIdentName: '[name]__[local]___[hash:base64:5]' } },
+					//{ loader: 'css-loader', options: { importLoaders: 1, modules: true, localIdentName: '[name]__[local]___[hash:base64:5]' } }, CSS Modules disabled to allow Bootstrap 4
 					{ loader: 'css-loader', options: { importLoaders: 1, modules: false } },
 
 					{ loader: 'postcss-loader', // Run post css actions

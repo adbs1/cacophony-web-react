@@ -4,9 +4,10 @@ import { connect } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { logout } from '../actions/user'
 import logo from '../../public/images/titlebar.png'
+import './NavBar.scss'
 
 const userMessage = (props) => {
-	return (props.user.isLoggedIn) ?
+	return (props.isLoggedIn) ?
 
 		<div className="collapse navbar-collapse" id="navbarToggler">
 			<ul className="navbar-nav mr-auto mt-2 mt-lg-0">
@@ -32,7 +33,8 @@ const userMessage = (props) => {
 
 userMessage.propTypes = {
 	user: PropTypes.object.isRequired,
-	logout: PropTypes.func.isRequired
+	logout: PropTypes.func.isRequired,
+	isLoggedIn: PropTypes.bool
 }
 
 const NavBar = (props) => (
@@ -47,10 +49,13 @@ const NavBar = (props) => (
 	</nav>
 )
 
-const mapStateToProps = state => ({user: state.user })
+const mapStateToProps = state => ({
+	user: state.user,
+	isLoggedIn: !!state.user.JWT
+})
 
 const mapDispatchToProps = dispatch => ({
-	logout:() => dispatch(logout())
+	logout: () => dispatch(logout())
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(NavBar)

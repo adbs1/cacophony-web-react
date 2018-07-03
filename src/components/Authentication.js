@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { Redirect } from 'react-router'
 
 const Authentication = (props) => {
-	if (!props.user.isLoggedIn) {
+	if (!props.isLoggedIn) {
 		return <Redirect to="/login"/>
 	}
 	return (
@@ -14,8 +14,12 @@ const Authentication = (props) => {
 
 Authentication.propTypes = {
 	user: PropTypes.object.isRequired,
+	isLoggedIn: PropTypes.bool,
 	children: PropTypes.object
 }
 
-const mapStateToProps = (state) => ({user:state.user})
+const mapStateToProps = (state) => ({
+	user: state.user,
+	isLoggedIn: !!state.user.JWT
+})
 export default connect(mapStateToProps)(Authentication)

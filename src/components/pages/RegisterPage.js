@@ -7,7 +7,7 @@ import { Redirect } from 'react-router'
 
 const RegisterPage = (props) => {
 
-	if(props.user.isLoggedIn) {
+	if(props.isLoggedIn) {
 		return <Redirect to="/" />
 	}
 
@@ -107,14 +107,16 @@ const RegisterPage = (props) => {
 
 const mapStateToProps = state => ({
 	registration: state.forms.registration,
-	user: state.user
+	user: state.user,
+	isLoggedIn: !!state.user.JWT
 })
 
 RegisterPage.propTypes = {
 	user: PropTypes.object.isRequired,
 	registration: PropTypes.object.isRequired,
 	dispatch: PropTypes.func,
-	login: PropTypes.func
+	login: PropTypes.func,
+	isLoggedIn: PropTypes.bool
 }
 
 export default connect(mapStateToProps)(RegisterPage)

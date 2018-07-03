@@ -1,15 +1,15 @@
 import fetch from 'cross-fetch'
-import Config from 'Config' // eslint-disable-line
+import { Config } from '../../app.config' // eslint-disable-line
 
 export default {
-	login: login,
-	persistUser: persistUser,
-	logout: logout,
-	register: register
+	login,
+	persistUser,
+	logout,
+	register
 }
-function login(credentials) {
 
-	let body = `username=${encodeURIComponent(credentials.username)}&password=${encodeURIComponent(credentials.password)}`
+function login(username, password) {
+	let body = `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`
 
 	return fetch(
 		`${Config.api}/authenticate_user`,
@@ -22,17 +22,14 @@ function login(credentials) {
 		}
 	)
 }
-function persistUser(json) {
-	localStorage.setItem('username', json.userData.username || '')
-	localStorage.setItem('JWT', json.token || '')
-	localStorage.setItem('isLoggedIn', true)
+function persistUser(username, token) {
+	localStorage.setItem('username', username)
+	localStorage.setItem('JWT', token)
 }
 function logout(){
 	localStorage.setItem('username', '')
 	localStorage.setItem('JWT', '')
-	localStorage.setItem('isLoggedIn', '')
 }
-
 function register(username, password) {
 
 	//{"errorType":"validation","message":"username: username in use","errors":{"username":{"location":"body","param":"username","value":"asdfsadf","msg":"username in use"}}}

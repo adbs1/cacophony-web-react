@@ -1,10 +1,11 @@
 import userService from '../services/service.user'
 
 export const REQUEST_LOGIN = "REQUEST_LOGIN"
-const requestLogin = (credentials) => {
+const requestLogin = (username, password) => {
 	return {
 		type: REQUEST_LOGIN,
-		data: credentials
+		username,
+		password
 	}
 }
 
@@ -34,26 +35,25 @@ export const invalidateLogin = () => {
 }
 
 export const logout = () => {
-
 	userService.logout()
 	return dispatch => {
 		dispatch(invalidateLogin())
 	}
 }
 
-export const login = (credentials) => {
+export const login = (username, password) => {
 	return dispatch => {
 		dispatch(invalidateLogin())
-		dispatch(requestLogin(credentials))
+		dispatch(requestLogin(username, password))
 
-		userService.login(credentials)
+		userService.login(username, password)
 			.then(response => response.json())
 			.then((json) => {
 				if(!json.success) {
 					dispatch(rejectLogin(json))
 					return
 				}
-				userService.persistUser(json)
+				userService.persistUser(json.userData.username,json.token)
 				dispatch(receiveLogin(json))
 			})
 	}

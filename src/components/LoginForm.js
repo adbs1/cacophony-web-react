@@ -15,10 +15,14 @@ const LoginForm = (props) => {
 		return (<div>Logging in ..</div>)
 	}
 
+	const login = (values) => {
+		props.login(values.username, values.password)
+	}
+
 	const errors = (props.errorMessage) ? (<div className="alert alert-danger" role="alert">{props.errorMessage}</div>) : null
 
 	return (
-		<LocalForm onSubmit={(values) => props.login(values)}>
+		<LocalForm onSubmit={(values) => login(values)}>
 			{errors}
 			<div className="form-group">
 				<label htmlFor="username">Username</label>
@@ -43,12 +47,12 @@ const LoginForm = (props) => {
 
 const mapStateToProps = state => ({
 	isLoggingIn: state.user.isLoggingIn,
-	isLoggedIn: state.user.isLoggedIn,
+	isLoggedIn: !!state.user.JWT,
 	errorMessage: state.user.errorMessage
 })
 
 const mapDispatchToProps = dispatch => ({
-	login:(val) => dispatch(login(val))
+	login:(username,password) => dispatch(login(username,password))
 })
 
 LoginForm.propTypes = {

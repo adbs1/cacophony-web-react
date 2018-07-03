@@ -58,7 +58,7 @@ export const register = (username, password) => {
 							return dispatch(rejectRegistration(json))
 						}
 					}
-					userService.persistUser(json)
+					userService.persistUser(json.userData.username, json.token)
 					dispatch(receiveRegistration(json))
 					dispatch(receiveLogin(json))
 				})
