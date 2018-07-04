@@ -44,7 +44,7 @@
     "cross-fetch": "^2.2.1",
     "file-loader": "^1.1.11",
     "history": "^4.4.1",
-    "jquery": "^1.9.1",
+    "jquery": "^3.3.1",
     "popper.js": "^1.14.3",
     "precss": "^3.1.2",
     "prop-types": "^15.6.2",
